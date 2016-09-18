@@ -14,6 +14,10 @@ Vagrant.configure(2) do |config|
     # (don't worry, it's just an example and gets replaced anyway)
     config.ssh.password = nil
 
+    # To use your main public/private key pair, uncomment these lines:
+    # config.ssh.private_key_path = File.expand_path("~/.ssh/id_rsa")
+    # config.ssh.insert_key = false
+
     # Disable shared folders
     config.vm.synced_folder ".", "/vagrant", disabled: true
 
