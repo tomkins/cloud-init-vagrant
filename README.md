@@ -1,4 +1,4 @@
-# cloud-init testing with Vagrant
+# Testing cloud-init with Vagrant
 
 An easy way of testing a cloud-init config file inside Vagrant. Currently based
 on Ubuntu 16.04 Xenial Xerus.
