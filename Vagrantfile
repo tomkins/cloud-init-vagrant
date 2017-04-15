@@ -36,9 +36,7 @@ Vagrant.configure(2) do |config|
         vb.linked_clone = true
 
         # Workarounds for 16.04 Vagrantfile problems:
-        # - can't start more than 1 machine with a static name
         # - serial console slows down the boot process dramatically.
-        vb.name = nil
         vb.customize [
             "modifyvm", :id,
             "--uartmode1", "disconnected"
