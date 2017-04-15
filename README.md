@@ -11,7 +11,7 @@ On Debian/Ubuntu:
 sudo apt-get install genisoimage
 ```
 
-On OS X Macports:
+On macOS Macports:
 
 ```
 sudo port install cdrtools
