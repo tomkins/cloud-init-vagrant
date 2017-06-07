@@ -42,4 +42,9 @@ Vagrant.configure(2) do |config|
             "--uartmode1", "disconnected"
         ]
     end
+
+    # libvirt example
+    # config.vm.provider :libvirt do |vm|
+    #   vm.storage :file, :device => :cdrom, :path => CLOUD_CONFIG_PATH
+    # end
 end
