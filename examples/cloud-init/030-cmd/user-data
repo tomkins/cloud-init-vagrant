@@ -1,0 +1,27 @@
+#cloud-config
+manage_etc_hosts: localhost
+
+# the commands will be run last thing after the machine is totally initialized
+# output shall be logged to /var/log/cloud-init-output.log
+runcmd:
+  # avahi-daemon doesn't exist, but cloud-init won't fail for such error
+  - [ systemctl, restart, avahi-daemon ]
+  - [ ls, -l, / ] 
+  - [ sh, -xc, "echo $(date) ': hello world!'" ]
+  - [ sh, -c, echo "=========hello world=========" ]
+  - [ echo, "=========hello world=========" ]
+  - ls -l /root
+  - [ wget, "http://example.org", -O, /tmp/index.html ]
+  - [ systemctl, disable, dhcpcd ]
+  - [ systemctl, enable, networking ]
+  # Rebooting after disabling and enabling services will be needed in case we don't want to stop the services
+  # It will also be needed in following examples where we setup custom networks
+  # However, if we reboot without a wait time, Vagrant will face the reboot while trying to communicate with the machine
+  # which will result in vagrant failing
+  # of course if there's provisioning using Ansible on Vagrant, that will be more tricky, cause we'll need to sleep enough time till the provisioning is over
+  # or we could use the provisioning from the cloud-init side, if desired!
+  # In any case, be careful while utilizing the reboot here
+  # Finally be ready to face the reboot while investigating the output log in /var/log/cloud-init-output.log :P
+  - [ sleep, 60 ]
+  - [ reboot ]
+
