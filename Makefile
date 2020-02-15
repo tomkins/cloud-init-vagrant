@@ -25,13 +25,13 @@ all:
 	${MAKE} nocloud.iso
 	 vagrant up
 
-recreate_all:
+recreate_all: ## "make all" with forced deletion of the vagrant box, use with care
 	${MAKE} link
 	${MAKE} nocloud.iso
 	 vagrant destroy -f && \
 	 vagrant up
 
-check:
+check: ## Check cloud-init syntax
 	cloud-init devel schema --config-file user-data
 
 link: ## Link to the current directory to ease development
