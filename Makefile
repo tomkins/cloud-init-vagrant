@@ -35,5 +35,5 @@ check: ## Check cloud-init syntax
 	cloud-init devel schema --config-file user-data
 
 link: ## Link to the current directory to ease development
-	rm ./Vagrantfile && ln -s ${VG_SAMPLE_DIR}/Vagrantfile ./Vagrantfile
-	rm ./user-data   && ln -s ${CI_SAMPLE_DIR}/user-data   ./user-data
+	rm -f ./Vagrantfile && ln -s ${VG_SAMPLE_DIR}/Vagrantfile ./Vagrantfile
+	rm -f ./user-data   && ln -s ${CI_SAMPLE_DIR}/user-data   ./user-data
