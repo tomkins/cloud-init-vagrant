@@ -19,9 +19,8 @@ sudo port install cdrtools
 
 ## Usage
 
-Create a new nocloud.iso file, and start Vagrant:
+Link to the desired example to execute, create a new nocloud.iso file, and start Vagrant:
 
 ```
-make
-vagrant up
+make all
 ```
