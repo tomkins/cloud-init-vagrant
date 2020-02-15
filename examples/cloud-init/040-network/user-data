@@ -1,0 +1,62 @@
+#cloud-config
+manage_etc_hosts: localhost
+
+
+# This example is considered incomplete, as the following networks in both network: version1 and version2 didn't work
+# But luckily adding our own 10-mystatic-ip.cfg configuration works
+# Note: You'll need to edit
+#  - the logical device name, "enp0s3 in our case" based on ones system, one could know it by running any other user-data example and checking ```ip a``` will show logical network devices, or by running ```sudo lshw -C network```
+#  - the IP Addresses
+
+# Not working
+network:
+  version: 1
+  config:
+    - type: physical
+      name: enp0s3
+      subnets:
+        - type: static
+          address: 192.168.1.165
+        - type: nameserver
+          address: 192.168.1.1
+        - type: nameserver
+          address: 8.8.8.8
+        - type: nameserver
+          address: 8.8.4.4
+
+# Not working
+network:
+  version: 2
+  ethernets:
+    enp0s3:
+      addresses:
+        - 192.168.1.171
+
+# Works
+write_files:
+  - content: |
+      nameserver 192.168.1.1
+      nameserver 8.8.4.4
+      nameserver 8.8.8.8
+    path: /etc/resolv.conf
+    append: true
+
+  - content: |
+      auto enp0s3
+      iface enp0s3 inet static
+        address 192.168.1.160
+        network 192.168.1.0
+        netmask 255.255.255.0
+        broadcast 192.168.1.255
+        gateway 192.168.1.1
+        dns-nameservers 192.168.1.1 8.8.8.8 8.8.4.4
+      iface default inet static
+    path: /etc/network/interfaces.d/10-mystatic-ip.cfg
+
+# Check 030_cmd example for details
+runcmd:
+  - [ sh, -xc, "echo $(date): hello world!" ]
+  - [ systemctl, enable, networking ]
+  - [ sleep, 60 ]
+  - [ reboot ]
+

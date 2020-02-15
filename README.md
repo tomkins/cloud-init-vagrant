@@ -38,5 +38,6 @@ Each Vagrantfile shall be able to run a specific range of user-data files based 
 	- 010-init
 	- 020-users
 	- 030-cmd
+	- 040-network
 - 020-custom-user:
 	- 020-users
