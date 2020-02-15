@@ -24,3 +24,5 @@ Link to the desired example to execute, create a new nocloud.iso file, and start
 ```
 make all
 ```
+
+To use other examples, modify the ```CI_SAMPLE_DIR``` and ```VG_SAMPLE_DIR``` in the ```Makefile``` to the desired sample directory for both cloud-init user-data configuration and Vagrantfile
