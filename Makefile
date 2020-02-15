@@ -8,7 +8,11 @@ else
 endif
 
 nocloud.iso: meta-data user-data
+	${MAKE} check
 	$(MKISOFS) \
-		-joliet -rock \
-		-volid "cidata" \
-		-output nocloud.iso meta-data user-data
+	 -joliet -rock \
+	 -volid "cidata" \
+	 -output nocloud.iso meta-data user-data
+
+check:
+	cloud-init devel schema --config-file user-data
