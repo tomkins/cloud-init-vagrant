@@ -1,0 +1,22 @@
+#cloud-config
+manage_etc_hosts: localhost
+
+users:
+  - name: walid
+    primary-group: users
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    # dialout: access usb
+    # input: access usb too?
+    # plugdev: mount and umount
+    # netdev: manage network interfaces
+    # adm: logs
+    # audio: access mic or soundcard
+    # video: access videocard
+    # reference: https://wiki.debian.org/SystemGroups
+    groups: users,dialout,input,plugdev,netdev,adm,audio,video
+    ssh-import-id: None
+    lock_passwd: true
+    ssh-authorized-keys:
+      - ssh-rsa ADD_YOUR_PUBLIC_KEY_HERE
+

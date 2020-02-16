@@ -1,0 +1,44 @@
+#cloud-config
+manage_etc_hosts: localhost
+
+
+# This is one of four ways to edit the network configurations, and it depends on editing the deprecated ENI "/etc/network/interfaces.d/*.cfg" the restarting the network
+# The second way is by adding a network-config file to the image, but doing so will make the vagrant panic and not being able to connect to the vm, as the default network is overwritten and not reachable anymore, however I noticed also the machine doesn't get the static ip that it requests, so I can't even ssh into it aside from vagrant
+# The third way is by adding network-interfaces section to the meta-data file, which yields to the same output of the second way.
+# Notice that network-config shall be supplied next to meta-data and user-data in the toplevel of nocloud.iso
+#        or it could be supplied as config file that shall be placed in /etc/cloud/cloud.conf.d/config.cfg "But in this case it will have a different syntax by the addition of ```network:``` top level"
+# examples are supplied
+# The fourth way is by adding a static ip configuration in Vagrantfile, which is a good option if only work with vagrant, but not a portable solution for a cloudinit cfg
+
+# Note: You'll need to edit
+#  - the logical device name, "enp0s3 in our case" based on ones system, one could know it by running any other user-data example and checking ```ip a``` will show logical network devices, or by running ```sudo lshw -C network```
+#  - the IP Addresses
+
+write_files:
+
+  - content: |
+      nameserver 192.168.1.1
+      nameserver 8.8.4.4
+      nameserver 8.8.8.8
+    path: /etc/resolv.conf
+    append: true
+
+  - content: |
+      auto enp0s3
+      iface enp0s3 inet static
+        address 192.168.1.160
+        network 192.168.1.0
+        netmask 255.255.255.0
+        broadcast 192.168.1.255
+        gateway 192.168.1.1
+        dns-nameservers 192.168.1.1 8.8.8.8 8.8.4.4
+      iface default inet static
+    path: /etc/network/interfaces.d/10-mystatic-ip.cfg
+
+# Check 030_cmd example for details
+runcmd:
+  - [ sh, -xc, "echo $(date): hello world!" ]
+  - [ systemctl, enable, networking ]
+  - [ sleep, 60 ]
+  - [ reboot ]
+

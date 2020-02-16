@@ -1,0 +1,12 @@
+#cloud-config
+manage_etc_hosts: localhost
+
+rsyslog:
+  configs:
+    - content: "*.*   @192.168.1.50:514"
+      filename: 01-logfetcher.conf
+  # Using this manual reload command with the ubuntu/xenial version
+  # prevents the vm from being accessed!
+  # Anyway we shouldn't need it as the default value is auto and it should be working correctly on all distros
+#  service_reload_command: [systemctl, restart, rsyslog]
+

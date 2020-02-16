@@ -19,9 +19,26 @@ sudo port install cdrtools
 
 ## Usage
 
-Create a new nocloud.iso file, and start Vagrant:
+Link to the desired example to execute, create a new nocloud.iso file, and start Vagrant:
 
 ```
-make
-vagrant up
+make all
 ```
+
+To use other examples, modify the ```CI_SAMPLE_DIR``` and ```VG_SAMPLE_DIR``` in the ```Makefile``` to the desired sample directory for both cloud-init user-data configuration and Vagrantfile
+
+
+### Examples
+Each Vagrantfile shall be able to run a specific range of user-data files based on the following mapping, new cloud-init examples shall be as much as possible compatible with the default Vagrantfile
+
+- Vagrantfile:
+	- list of user-data files
+
+- 010-init:
+	- 010-init
+	- 020-users
+	- 030-cmd
+	- 040-network
+	- 050-rsyslog
+- 020-custom-user:
+	- 020-users
