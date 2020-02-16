@@ -1,0 +1,13 @@
+# THIS EXAMPLE DOES NOT WORK, only left for illustration purposes
+
+instance-id: iid-0123456789abcdef
+local-hostname: ubuntu-xenial
+
+network-interfaces: |
+  iface eth0 inet static
+  address 192.168.1.174
+  network 192.168.1.0
+  netmask 255.255.255.0
+  broadcast 192.168.1.255
+  gateway 192.168.1.254
+

@@ -2,6 +2,7 @@ SAMPLE_DIR=./examples/
 
 CI_SAMPLE_DIR=${SAMPLE_DIR}/cloud-init/010-init/
 VG_SAMPLE_DIR=${SAMPLE_DIR}/vagrants/010-init/
+MD_SAMPLE_DIR=./
 
 GENISOIMAGE := $(shell genisoimage -version 2>/dev/null)
 
@@ -17,7 +18,7 @@ nocloud.iso: meta-data user-data
 	 -joliet -rock \
 	 -volid "cidata" \
 	 -output nocloud.iso \
-	   meta-data \
+	   ${MD_SAMPLE_DIR}/meta-data \
 	   ${CI_SAMPLE_DIR}/user-data
 
 all:
